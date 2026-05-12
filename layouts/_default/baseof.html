@@ -3,7 +3,8 @@
 <head>
   {{- partial "head.html" . -}}
 </head>
-<body>
+<body{{ if .IsHome }} data-page="home"{{ end }}>
+  {{ if .IsHome }}<canvas class="nb-particles" aria-hidden="true"></canvas>{{ end }}
   {{- partial "header.html" . -}}
   <main class="nb-main">
     <div class="nb-container">
@@ -11,5 +12,6 @@
     </div>
   </main>
   {{- partial "footer.html" . -}}
+  {{ if .IsHome }}<script defer src="{{ "/js/particles.js" | relURL }}"></script>{{ end }}
 </body>
 </html>
