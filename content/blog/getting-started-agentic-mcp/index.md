@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with Agentic AI and the Model Context Protocol"
-date: 2026-05-12
+date: 2026-04-09
 draft: false
 summary: "Anthropic published MCP in November 2024. It is now the closest thing we have to a USB-C for tool use. Here's what it is, what it isn't, and how to build something with it without lighting your data on fire."
 description: "A practical introduction to agentic AI and the Model Context Protocol — what agents really are, how MCP differs from raw function calling, and how to build and secure a first MCP server."

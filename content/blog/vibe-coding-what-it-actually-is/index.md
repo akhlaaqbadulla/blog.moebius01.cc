@@ -1,6 +1,6 @@
 ---
 title: "Vibe Coding: What It Is, When It Works, and When to Stop"
-date: 2026-05-12
+date: 2026-03-14
 draft: false
 summary: "Andrej Karpathy coined the term in February 2025. A year and change later, it's a real practice — and a real footgun. Where it speeds you up, where it bites, and how to tell the difference."
 description: "A practitioner's guide to vibe coding — what Karpathy meant, where the practice actually delivers, and the specific situations where you should stop and write the code yourself."

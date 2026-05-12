@@ -1,6 +1,6 @@
 ---
 title: "The Hidden Cost of Hybrid Cloud: Lessons from 9 Years in the Trenches"
-date: 2026-05-12
+date: 2026-02-20
 draft: false
 summary: "Hybrid cloud is sold on flexibility. What it actually costs is operational discipline you usually don't have on day one. Notes from running the real thing."
 description: "An infrastructure engineer's view on the real TCO of hybrid cloud — egress, operational overhead, when on-prem wins, and the discipline that makes it work."
