@@ -1,0 +1,29 @@
+[[main]]
+  name = "Portfolio"
+  pageRef = "/portfolio"
+  weight = 10
+
+[[main]]
+  name = "Blog"
+  pageRef = "/blog"
+  weight = 20
+
+[[main]]
+  name = "Categories"
+  pageRef = "/categories"
+  weight = 30
+
+[[main]]
+  name = "Tags"
+  pageRef = "/tags"
+  weight = 40
+
+[[footer]]
+  name = "RSS"
+  url = "/index.xml"
+  weight = 10
+
+[[footer]]
+  name = "Email"
+  url = "mailto:mianbudulla@protonmail.com"
+  weight = 20
