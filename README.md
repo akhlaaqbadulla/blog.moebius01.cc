@@ -16,8 +16,8 @@ winget install Hugo.Hugo.Extended  # Windows
 git clone git@github.com:akhlaaqbadulla/blog.moebius01.cc.git
 cd blog.moebius01.cc
 
-# Pull theme via Hugo Modules
-hugo mod get
+# Clone the theme (matches the workflow)
+git clone --depth 1 --branch v2.10.0 https://github.com/jpanther/congo.git themes/congo
 
 # Start dev server
 hugo server -D
@@ -35,7 +35,8 @@ git add . && git commit -m "blog: add my-post-slug" && git push
 ## Deployment
 
 Pushing to `main` triggers the GitHub Actions workflow (`.github/workflows/hugo.yml`),
-which builds the site with Hugo Extended and deploys to GitHub Pages automatically.
+which clones the Congo theme, builds the site with Hugo Extended, and deploys to
+GitHub Pages automatically.
 
 The custom domain is configured via `static/CNAME` (`blog.moebius01.cc`).
 DNS: `CNAME blog → akhlaaqbadulla.github.io`
