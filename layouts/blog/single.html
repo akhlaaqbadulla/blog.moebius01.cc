@@ -1,0 +1,35 @@
+{{ define "main" }}
+<article class="nb-article">
+  <header class="nb-article__header">
+    <div class="nb-article__meta">
+      <span>{{ .Date.Format "2 January 2006" }}</span>
+      {{- with .ReadingTime }}<span>{{ . }} min read</span>{{ end }}
+      {{- with .Params.categories }}<span>{{ delimit . " · " }}</span>{{ end }}
+    </div>
+    <h1 class="nb-article__title">{{ .Title }}</h1>
+    {{- with .Params.summary }}<p class="nb-article__summary">{{ . }}</p>{{ end -}}
+  </header>
+
+  {{- if .TableOfContents }}
+  <nav class="nb-toc">
+    <div class="nb-toc__label">Contents</div>
+    {{ .TableOfContents }}
+  </nav>
+  {{- end }}
+
+  <div class="nb-prose">{{ .Content }}</div>
+
+  {{- with .Params.tags }}
+  <div class="nb-tag-row" style="margin-top:2.5rem;">
+    {{- range . }}<span class="nb-tag">{{ . }}</span>{{ end -}}
+  </div>
+  {{- end }}
+
+  {{- if or .NextInSection .PrevInSection }}
+  <nav class="nb-pagination">
+    <div>{{ with .PrevInSection }}<a href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}</div>
+    <div>{{ with .NextInSection }}<a href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}</div>
+  </nav>
+  {{- end }}
+</article>
+{{ end }}

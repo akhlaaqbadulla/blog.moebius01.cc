@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="nb-list">
+  <header style="margin-bottom:2rem;">
+    <h1 style="margin:0;">{{ .Title }}</h1>
+    {{- with .Description }}<p style="color:var(--muted);font-size:1.05rem;margin:0.4rem 0 0;">{{ . }}</p>{{ end -}}
+  </header>
+
+  {{- $posts := where .Pages "Draft" false -}}
+  {{- $posts = $posts.GroupByDate "2006" -}}
+  {{- range $posts }}
+    <div class="nb-list__year">{{ .Key }}</div>
+    {{- range .Pages }}
+      <a href="{{ .RelPermalink }}" class="nb-list__item">
+        <div class="nb-list__date">
+          {{ .Date.Format "2006-01-02" }}{{ with .ReadingTime }} · {{ . }} min read{{ end }}
+          {{- with .Params.categories }} · {{ delimit . " · " }}{{ end -}}
+        </div>
+        <div class="nb-list__title">{{ .Title }}</div>
+        {{- with .Params.summary }}<p class="nb-list__summary">{{ . }}</p>{{ end -}}
+      </a>
+    {{- end }}
+  {{- end }}
+</section>
+{{ end }}

@@ -1,0 +1,12 @@
+{{- $author := .Site.Params.author -}}
+<footer class="nb-footer">
+  <div class="nb-container nb-footer__inner">
+    <div>© {{ now.Format "2006" }} {{ $author.name | default .Site.Title }} · built with Hugo</div>
+    <div class="nb-footer__links">
+      {{- with $author.github }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">GitHub</a>{{ end }}
+      {{- with $author.linkedin }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>{{ end }}
+      {{- with $author.email }}<a href="mailto:{{ . }}">Email</a>{{ end }}
+      <a href="{{ "/index.xml" | relURL }}">RSS</a>
+    </div>
+  </div>
+</footer>

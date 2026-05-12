@@ -1,0 +1,37 @@
+{{ define "main" }}
+<section>
+  <header style="margin-bottom:2rem;">
+    <h1 style="margin:0;">{{ .Title }}</h1>
+    {{- with .Description }}<p style="color:var(--muted);font-size:1.05rem;margin:0.4rem 0 0;">{{ . }}</p>{{ end -}}
+    {{- with .Content }}<div class="nb-prose" style="margin-top:1rem;">{{ . }}</div>{{ end -}}
+  </header>
+
+  {{- $order := slice "in-progress" "planned" "completed" -}}
+  {{- range $order }}
+    {{- $status := . -}}
+    {{- $items := where $.Pages "Params.status" $status -}}
+    {{- if $items }}
+      <div class="nb-section-head">
+        <h2>{{ replace $status "-" " " }}</h2>
+        <span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--muted-2);">{{ len $items }} {{ cond (eq (len $items) 1) "project" "projects" }}</span>
+      </div>
+      <div class="nb-grid nb-grid--3" style="margin-bottom:2.5rem;">
+        {{- range $items }}
+          <a href="{{ .RelPermalink }}" class="nb-card nb-card--link nb-proj-card">
+            <div class="nb-proj-card__head">
+              <h3 class="nb-proj-card__title">{{ .Title }}</h3>
+              <span class="nb-status" data-status="{{ .Params.status }}">{{ replace .Params.status "-" " " }}</span>
+            </div>
+            {{- with .Params.summary }}<p class="nb-proj-card__summary">{{ . }}</p>{{ end -}}
+            {{- with .Params.stack }}
+              <div class="nb-tag-row">
+                {{- range . }}<span class="nb-tag">{{ . }}</span>{{ end -}}
+              </div>
+            {{- end }}
+          </a>
+        {{- end }}
+      </div>
+    {{- end }}
+  {{- end }}
+</section>
+{{ end }}

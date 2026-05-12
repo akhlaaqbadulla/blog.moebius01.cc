@@ -1,0 +1,20 @@
+{{- $current := .RelPermalink -}}
+<header class="nb-nav">
+  <div class="nb-container nb-nav__inner">
+    <a href="{{ "/" | relURL }}" class="nb-brand">moebius01<span>.cc</span></a>
+
+    <input type="checkbox" id="nb-burger" class="nb-burger">
+    <label for="nb-burger" class="nb-burger-label" aria-label="Toggle navigation"><span></span></label>
+
+    <ul class="nb-nav__links">
+      {{- range .Site.Menus.main }}
+        {{- $link := .URL | default .PageRef -}}
+        {{- $href := $link | relURL -}}
+        {{- $active := and (ne $link "/") (hasPrefix $current ($link | absURL | replaceRE "^https?://[^/]+" "")) -}}
+        <li>
+          <a href="{{ $href }}"{{ if $active }} class="is-active"{{ end }}>{{ .Name }}</a>
+        </li>
+      {{- end }}
+    </ul>
+  </div>
+</header>

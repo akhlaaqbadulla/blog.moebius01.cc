@@ -1,0 +1,13 @@
+{{ define "main" }}
+<article class="nb-article">
+  <header class="nb-article__header">
+    <div class="nb-article__meta">
+      {{- with .Date }}<span>{{ .Format "2 January 2006" }}</span>{{ end }}
+      {{- with .ReadingTime }}<span>{{ . }} min read</span>{{ end }}
+    </div>
+    <h1 class="nb-article__title">{{ .Title }}</h1>
+    {{- with .Params.summary }}<p class="nb-article__summary">{{ . }}</p>{{ end -}}
+  </header>
+  <div class="nb-prose">{{ .Content }}</div>
+</article>
+{{ end }}

@@ -1,0 +1,85 @@
+{{ define "main" }}
+{{- $p := .Params -}}
+<section class="nb-cv">
+
+  <div class="nb-cv__head">
+    <div>
+      <h1 class="nb-cv__name">{{ .Site.Params.author.name }}</h1>
+      <p class="nb-cv__role">{{ $p.role }}</p>
+      <div class="nb-cv__contact">
+        {{- with $p.location }}<span>{{ . }}</span>{{ end -}}
+        {{- with $p.phone    }}<span>· {{ . }}</span>{{ end -}}
+        {{- with $p.email    }}<span>· <a href="mailto:{{ . }}">{{ . }}</a></span>{{ end -}}
+        {{- with $p.website  }}<span>· <a href="https://{{ . }}">{{ . }}</a></span>{{ end -}}
+      </div>
+    </div>
+    <button type="button" class="nb-pdf-btn" onclick="window.print()">Download PDF</button>
+  </div>
+
+  {{- with .Content }}
+  <div class="nb-cv__section">
+    <h2 class="nb-cv__h">Professional Profile</h2>
+    <div class="nb-prose">{{ . }}</div>
+  </div>
+  {{- end }}
+
+  {{- with $p.competencies }}
+  <div class="nb-cv__section">
+    <h2 class="nb-cv__h">Core Competencies</h2>
+    <ul class="nb-competencies">
+      {{- range . }}<li>{{ . }}</li>{{ end -}}
+    </ul>
+  </div>
+  {{- end }}
+
+  {{- with $p.experience }}
+  <div class="nb-cv__section">
+    <h2 class="nb-cv__h">Professional Experience</h2>
+    {{- range . }}
+      <div class="nb-role">
+        <h3 class="nb-role__title">{{ .role }}</h3>
+        <p class="nb-role__company">{{ .company }}{{ with .location }} · {{ . }}{{ end }} · <span class="nb-period">{{ .period }}</span></p>
+        {{- with .bullets }}
+        <ul>
+          {{- range . }}<li>{{ . }}</li>{{ end -}}
+        </ul>
+        {{- end }}
+      </div>
+    {{- end }}
+  </div>
+  {{- end }}
+
+  {{- with $p.education }}
+  <div class="nb-cv__section">
+    <h2 class="nb-cv__h">Education</h2>
+    <ul class="nb-edu" style="list-style:none;padding:0;margin:0;">
+      {{- range . }}
+        <li>
+          <strong>{{ .degree }}</strong> — {{ .school }}
+          <span class="nb-period">{{ .period }}</span>
+        </li>
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+
+  {{- with $p.certifications }}
+  <div class="nb-cv__section">
+    <h2 class="nb-cv__h">Certifications &amp; Professional Development</h2>
+    <ul class="nb-certs">
+      {{- range . }}<li class="nb-cert">{{ . }}</li>{{ end -}}
+    </ul>
+  </div>
+  {{- end }}
+
+  {{- with $p.languages }}
+  <div class="nb-cv__section">
+    <h2 class="nb-cv__h">Languages</h2>
+    <ul class="nb-langs">
+      {{- range . }}<li>{{ .name }}<span>{{ .level }}</span></li>{{ end -}}
+    </ul>
+  </div>
+  {{- end }}
+
+</section>
+{{ end }}

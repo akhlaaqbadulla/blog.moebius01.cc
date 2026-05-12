@@ -1,0 +1,11 @@
+{{- /* Reusable post card. Pass a page context: {{ partial "post-card.html" . }} */ -}}
+<a href="{{ .RelPermalink }}" class="nb-card nb-card--link nb-post-card">
+  <div class="nb-post-card__date">{{ .Date.Format "2006-01-02" }}{{ with .ReadingTime }} · {{ . }} min read{{ end }}</div>
+  <h3 class="nb-post-card__title">{{ .Title }}</h3>
+  {{- with .Params.summary }}<p class="nb-post-card__summary">{{ . }}</p>{{ end -}}
+  {{- with .Params.tags }}
+  <div class="nb-tag-row">
+    {{- range first 4 . }}<span class="nb-tag">{{ . }}</span>{{ end -}}
+  </div>
+  {{- end }}
+</a>
