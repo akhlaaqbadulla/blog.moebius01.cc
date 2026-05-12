@@ -149,6 +149,6 @@ buildExpired = false
     bio = "9+ years across hybrid cloud, on-prem, virtualization, security, and open-source infrastructure."
     links = [
       { email = "mailto:mianbudulla@protonmail.com" },
-      { github = "https://github.com/akhlaaqbadulla" },     # update with your GitHub URL
-      { linkedin = "https://www.linkedin.com/" }   # update with your LinkedIn URL
+      { github = "https://github.com/akhlaaqbadulla" },
+      { linkedin = "https://www.linkedin.com/" }
     ]
