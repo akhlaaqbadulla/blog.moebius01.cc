@@ -1,149 +1,57 @@
 # =============================================================================
 # Hugo Site Configuration — blog.moebius01.cc
+# Custom "Nebula" theme — fully self-contained in layouts/ and static/
 # =============================================================================
 baseURL = "https://blog.moebius01.cc/"
-languageCode = "en-us"
+locale = "en-us"
 title = "Mian Budulla"
-theme = "congo"
 
 enableRobotsTXT = true
 enableEmoji = true
 enableGitInfo = false
-hasCJKLanguage = false
 summaryLength = 30
 buildDrafts = false
 buildFuture = false
 buildExpired = false
 
-# Pagination
 [pagination]
   pagerSize = 10
 
-# Output formats — RSS feed for blog
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home    = ["HTML", "RSS"]
   section = ["HTML", "RSS"]
 
-# Taxonomies — categories and tags for the blog
 [taxonomies]
   category = "categories"
-  tag = "tags"
-  series = "series"
+  tag      = "tags"
+  series   = "series"
 
-# Markup configuration — syntax highlighting + safe HTML in markdown
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+  [markup.goldmark.renderer]
+    unsafe = true
   [markup.highlight]
-    noClasses = false
+    noClasses  = false
     codeFences = true
     guessSyntax = true
-    lineNos = false
-    style = "github-dark"
+    lineNos    = false
+    style      = "github-dark"
   [markup.tableOfContents]
     startLevel = 2
-    endLevel = 4
-    ordered = false
+    endLevel   = 4
+    ordered    = false
 
 # =============================================================================
-# Site Parameters (Congo theme)
+# Site Parameters
 # =============================================================================
 [params]
-  description = "Infrastructure, security, and open-source engineering — Mian Budulla."
-  colorScheme = "slate"
-  defaultAppearance = "dark"
-  autoSwitchAppearance = true
+  description = "Polymath engineer — fullstack, infrastructure, AI, security, IT ops."
 
-  enableSearch = true
-  enableCodeCopy = true
-  mainSections = ["blog"]
-  robots = ""
-
-  [params.header]
-    layout = "basic"
-
-  [params.footer]
-    showCopyright = true
-    showThemeAttribution = true
-    showAppearanceSwitcher = true
-    showScrollToTop = true
-
-  [params.homepage]
-    layout = "custom"
-    homepageImage = ""
-    showRecent = true
-    showRecentItems = 4
-    showMoreLink = true
-    showMoreLinkDest = "/blog/"
-    cardView = true
-    cardViewScreenWidth = false
-    layoutBackgroundBlur = false
-
-  [params.article]
-    showDate = true
-    showViews = false
-    showLikes = false
-    showDateOnlyInArticle = false
-    showDateUpdated = false
-    showAuthor = true
-    showBreadcrumbs = true
-    showDraftLabel = true
-    showEdit = false
-    showHeadingAnchors = true
-    showPagination = true
-    invertPagination = false
-    showReadingTime = true
-    showTableOfContents = true
-    showTaxonomies = true
-    showAuthorBottom = false
-    showWordCount = false
-    showComments = false
-    sharingLinks = ["linkedin", "twitter", "email"]
-
-  [params.list]
-    showHero = false
-    showBreadcrumbs = false
-    showSummary = true
-    showViews = false
-    showLikes = false
-    showTableOfContents = false
-    showCards = true
-    groupByYear = true
-    cardView = true
-    cardViewScreenWidth = false
-    constrainItemsWidth = false
-
-  [params.sitemap]
-    excludedKinds = ["taxonomy", "term"]
-
-  [params.taxonomy]
-    showTermCount = true
-    showHero = false
-    showBreadcrumbs = false
-    showViews = false
-    showLikes = false
-    showTableOfContents = false
-    cardView = false
-
-  [params.term]
-    showHero = false
-    showBreadcrumbs = false
-    showViews = false
-    showLikes = false
-    showTableOfContents = true
-    groupByYear = false
-    cardView = true
-    cardViewScreenWidth = false
-
-  # Author block
   [params.author]
-    name = "Mian Budulla"
-    image = ""
-    headline = "Infrastructure & Security Engineer"
-    bio = "9+ years across hybrid cloud, on-prem, virtualization, security, and open-source infrastructure."
-    links = [
-      { email = "mailto:mianbudulla@protonmail.com" },
-      { github = "https://github.com/akhlaaqbadulla" },
-      { linkedin = "https://www.linkedin.com/" }
-    ]
+    name     = "Mian Budulla"
+    handle   = "akhlaaqbadulla"
+    tagline  = "Polymath engineer · fullstack, infra, AI, security, IT ops"
+    avatar   = "/images/avatar.jpg"
+    github   = "https://github.com/akhlaaqbadulla"
+    linkedin = "https://www.linkedin.com/in/budulla-akhlaaq/"
+    email    = "mianbudulla@protonmail.com"
+    bio      = "Fullstack developer, infrastructure designer, AI builder, IT generalist. 9+ years across hybrid cloud, on-prem, security hardening, internal tooling, and procurement."

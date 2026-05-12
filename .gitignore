@@ -24,3 +24,10 @@ Thumbs.db
 # Local env
 .env
 .env.local
+
+# Claude Code (local assistant config — do not publish)
+.claude/
+
+# Source asset originals at repo root (the optimised copy lives in /static)
+/cool-profile-picture-*.jpg
+/cool-profile-picture-*.png

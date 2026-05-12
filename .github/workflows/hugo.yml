@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.140.2
+      HUGO_VERSION: 0.161.1
       HUGO_ENVIRONMENT: production
       HUGO_ENV: production
     steps:
@@ -36,11 +36,6 @@ jobs:
           wget -O ${{ runner.temp }}/hugo.deb \
             https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
-
-      - name: Clone Congo theme
-        run: |
-          rm -rf themes/congo
-          git clone --depth 1 --branch v2.10.0 https://github.com/jpanther/congo.git themes/congo
 
       - name: Setup Pages
         id: pages

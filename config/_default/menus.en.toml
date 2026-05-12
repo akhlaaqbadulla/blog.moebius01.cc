@@ -1,22 +1,17 @@
 [[main]]
-  name = "Portfolio"
-  pageRef = "/portfolio"
+  name = "Blog"
+  pageRef = "/blog"
   weight = 10
 
 [[main]]
-  name = "Blog"
-  pageRef = "/blog"
+  name = "Portfolio"
+  pageRef = "/portfolio"
   weight = 20
 
 [[main]]
-  name = "Categories"
-  pageRef = "/categories"
+  name = "Projects"
+  pageRef = "/projects"
   weight = 30
-
-[[main]]
-  name = "Tags"
-  pageRef = "/tags"
-  weight = 40
 
 [[footer]]
   name = "RSS"

@@ -1,17 +1,10 @@
-languageCode = "en"
-languageName = "English"
+locale = "en"
+label = "English"
 weight = 1
 title = "Mian Budulla"
 
 [params]
-  displayName = "EN"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "Infrastructure, security, and open-source engineering."
-
-[params.author]
-  name = "Mian Budulla"
-  image = ""
-  headline = "Infrastructure & Security Engineer"
-  bio = "9+ years across hybrid cloud, on-prem, virtualization, security, and open-source infrastructure."
+  description = "Polymath engineer — fullstack, infrastructure, AI, security, IT ops."
