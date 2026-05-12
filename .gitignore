@@ -3,8 +3,8 @@ public/
 resources/_gen/
 .hugo_build.lock
 
-# Hugo modules
-# (go.sum is committed; node_modules is ignored)
+# Theme (cloned at build time and locally)
+themes/
 
 # Node
 node_modules/
