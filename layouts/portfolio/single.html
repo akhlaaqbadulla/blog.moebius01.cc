@@ -1,7 +1,13 @@
 {{ define "main" }}
 {{- $p := .Params -}}
-<section class="nb-cv">
+{{- $email := $p.email -}}
+{{- $rolesCount   := len $p.experience -}}
+{{- $certsCount   := len $p.certifications -}}
+{{- $langsCount   := len $p.languages -}}
 
+<section class="nb-cv nb-cv--v2">
+
+  {{/* ---------- Header ---------- */}}
   <div class="nb-cv__head">
     <div>
       <h1 class="nb-cv__name">{{ .Site.Params.author.name }}</h1>
@@ -13,73 +19,160 @@
         {{- with $p.website  }}<span>· <a href="https://{{ . }}">{{ . }}</a></span>{{ end -}}
       </div>
     </div>
-    <button type="button" class="nb-pdf-btn" onclick="window.print()">Download PDF</button>
+    <div class="nb-cv__actions">
+      {{- with $email }}
+        <button type="button" class="nb-pdf-btn nb-copy-btn" data-email="{{ . }}" aria-label="Copy email address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy email
+        </button>
+      {{- end }}
+      <button type="button" class="nb-pdf-btn" onclick="window.print()">Download PDF</button>
+    </div>
   </div>
 
-  {{- with .Content }}
-  <div class="nb-cv__section">
-    <h2 class="nb-cv__h">Professional Profile</h2>
-    <div class="nb-prose">{{ . }}</div>
+  {{/* ---------- Stats ---------- */}}
+  <div class="nb-cv__stats" aria-label="Quick stats">
+    <div><strong data-counter="9" data-suffix="+">0</strong><span>years</span></div>
+    <div><strong data-counter="{{ $rolesCount }}">0</strong><span>roles</span></div>
+    <div><strong data-counter="{{ $certsCount }}">0</strong><span>certifications</span></div>
+    <div><strong data-counter="{{ $langsCount }}">0</strong><span>languages</span></div>
   </div>
-  {{- end }}
 
-  {{- with $p.competencies }}
-  <div class="nb-cv__section">
-    <h2 class="nb-cv__h">Core Competencies</h2>
-    <ul class="nb-competencies">
+  {{/* ---------- Currently ---------- */}}
+  {{- with $p.currently }}
+  <aside class="nb-cv__currently" aria-label="Currently working on">
+    <div class="nb-cv__h-sm">Currently</div>
+    <ul>
       {{- range . }}<li>{{ . }}</li>{{ end -}}
     </ul>
-  </div>
+  </aside>
   {{- end }}
 
-  {{- with $p.experience }}
-  <div class="nb-cv__section">
-    <h2 class="nb-cv__h">Professional Experience</h2>
-    {{- range . }}
-      <div class="nb-role">
-        <h3 class="nb-role__title">{{ .role }}</h3>
-        <p class="nb-role__company">{{ .company }}{{ with .location }} · {{ . }}{{ end }} · <span class="nb-period">{{ .period }}</span></p>
-        {{- with .bullets }}
-        <ul>
-          {{- range . }}<li>{{ . }}</li>{{ end -}}
-        </ul>
-        {{- end }}
-      </div>
-    {{- end }}
+  {{/* ---------- Filter chips ---------- */}}
+  <div class="nb-cv__filters" role="toolbar" aria-label="Filter content by domain">
+    <button type="button" class="nb-chip is-active" data-filter="all"        aria-pressed="true">All</button>
+    <button type="button" class="nb-chip"           data-filter="cloud"      aria-pressed="false">Cloud</button>
+    <button type="button" class="nb-chip"           data-filter="infra"      aria-pressed="false">Infrastructure</button>
+    <button type="button" class="nb-chip"           data-filter="security"   aria-pressed="false">Security</button>
+    <button type="button" class="nb-chip"           data-filter="ai"         aria-pressed="false">AI</button>
+    <button type="button" class="nb-chip"           data-filter="devops"     aria-pressed="false">DevOps</button>
+    <button type="button" class="nb-chip"           data-filter="leadership" aria-pressed="false">Leadership</button>
+    <button type="button" class="nb-chip"           data-filter="fullstack"  aria-pressed="false">Fullstack</button>
   </div>
-  {{- end }}
 
-  {{- with $p.education }}
-  <div class="nb-cv__section">
-    <h2 class="nb-cv__h">Education</h2>
-    <ul class="nb-edu" style="list-style:none;padding:0;margin:0;">
-      {{- range . }}
-        <li>
-          <strong>{{ .degree }}</strong> — {{ .school }}
-          <span class="nb-period">{{ .period }}</span>
-        </li>
+  {{/* ---------- Two-column layout ---------- */}}
+  <div class="nb-cv__layout">
+    <div class="nb-cv__main">
+
+      {{- with .Content }}
+      <section id="profile" class="nb-cv__section nb-reveal">
+        <h2 class="nb-cv__h">Professional Profile</h2>
+        <div class="nb-prose">{{ . }}</div>
+      </section>
       {{- end }}
-    </ul>
-  </div>
-  {{- end }}
 
-  {{- with $p.certifications }}
-  <div class="nb-cv__section">
-    <h2 class="nb-cv__h">Certifications &amp; Professional Development</h2>
-    <ul class="nb-certs">
-      {{- range . }}<li class="nb-cert">{{ . }}</li>{{ end -}}
-    </ul>
-  </div>
-  {{- end }}
+      {{- with $p.competencies }}
+      <section id="skills" class="nb-cv__section nb-reveal">
+        <h2 class="nb-cv__h">Core Competencies</h2>
+        <ul class="nb-skill-matrix">
+          {{- range . }}
+            {{- $tags  := delimit .tags " " -}}
+            {{- $level := .level -}}
+            <li class="nb-skill" data-tags="{{ $tags }}" data-skill-tags="{{ $tags }}">
+              <span class="nb-skill__name">{{ .name }}</span>
+              <span class="nb-skill__bar" aria-label="{{ .level }} of 5">
+                {{- range $i, $_ := (seq 5) }}
+                  <i class="nb-skill__dot{{ if le (add $i 1) $level }} is-filled{{ end }}"></i>
+                {{- end -}}
+              </span>
+              <span class="nb-skill__years">{{ .years }}y</span>
+            </li>
+          {{- end }}
+        </ul>
+      </section>
+      {{- end }}
 
-  {{- with $p.languages }}
-  <div class="nb-cv__section">
-    <h2 class="nb-cv__h">Languages</h2>
-    <ul class="nb-langs">
-      {{- range . }}<li>{{ .name }}<span>{{ .level }}</span></li>{{ end -}}
-    </ul>
+      {{- with $p.experience }}
+      <section id="experience" class="nb-cv__section nb-reveal">
+        <h2 class="nb-cv__h">Professional Experience</h2>
+        <ol class="nb-timeline">
+          {{- range $idx, $r := . }}
+            <li class="nb-timeline__item" data-skills="{{ delimit $r.skills " " }}">
+              <details class="nb-role"{{ if eq $idx 0 }} open{{ end }}>
+                <summary>
+                  <span class="nb-timeline__dot" aria-hidden="true"></span>
+                  <span class="nb-role__chev" aria-hidden="true">▸</span>
+                  <div>
+                    <h3>{{ $r.role }}</h3>
+                    <p class="nb-role__company">{{ $r.company }}{{ with $r.location }} · {{ . }}{{ end }} · <span class="nb-period">{{ $r.period }}</span></p>
+                  </div>
+                </summary>
+                {{- with $r.bullets }}
+                <ul>
+                  {{- range . }}
+                    <li data-tags="{{ delimit .tags " " }}">
+                      {{ .text }}
+                      {{- range .tags }}<span class="nb-bullet-tag">{{ . }}</span>{{ end -}}
+                    </li>
+                  {{- end }}
+                </ul>
+                {{- end }}
+              </details>
+            </li>
+          {{- end }}
+        </ol>
+      </section>
+      {{- end }}
+
+      {{- with $p.education }}
+      <section id="education" class="nb-cv__section nb-reveal">
+        <h2 class="nb-cv__h">Education</h2>
+        <ul class="nb-edu" style="list-style:none;padding:0;margin:0;">
+          {{- range . }}
+            <li>
+              <strong>{{ .degree }}</strong> — {{ .school }}
+              <span class="nb-period">{{ .period }}</span>
+            </li>
+          {{- end }}
+        </ul>
+      </section>
+      {{- end }}
+
+      {{- with $p.certifications }}
+      <section id="certifications" class="nb-cv__section nb-reveal">
+        <h2 class="nb-cv__h">Certifications &amp; Professional Development</h2>
+        <ul class="nb-certs">
+          {{- range . }}<li class="nb-cert">{{ . }}</li>{{ end -}}
+        </ul>
+      </section>
+      {{- end }}
+
+      {{- with $p.languages }}
+      <section id="languages" class="nb-cv__section nb-reveal">
+        <h2 class="nb-cv__h">Languages</h2>
+        <ul class="nb-langs">
+          {{- range . }}<li>{{ .name }}<span>{{ .level }}</span></li>{{ end -}}
+        </ul>
+      </section>
+      {{- end }}
+
+    </div>
+
+    {{/* ---------- TOC sidebar ---------- */}}
+    <nav class="nb-cv__sidebar" aria-label="Section navigation">
+      <ul>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#languages">Languages</a></li>
+      </ul>
+    </nav>
   </div>
-  {{- end }}
+
+  <div class="nb-toast" role="status" aria-live="polite" hidden>Email copied</div>
 
 </section>
+<script defer src="{{ "/js/portfolio.js" | relURL }}"></script>
 {{ end }}
